@@ -1,0 +1,71 @@
+.searchIcon{
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 30px;
+    border-radius: 7px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.action{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: auto;
+}
+
+
+
+  .dropdownIconToggle{
+    background: transparent !important ;
+
+    border-color: grey !important;
+    color: black !important ;
+
+  }
+
+
+.modalConCta{
+    display: flex;
+    justify-content: space-around;
+    width: 45%;
+    margin: 10px auto;
+}
+
+.acceptCta{
+    background-image: linear-gradient(to right,#e4c87f,#c19647);
+    text-transform: none !important ; 
+    
+}
+
+.rejectCta{
+    background: #ffffff 0% 0% no-repeat padding-box !important ;
+    border: 1px solid #c19647 !important ;
+    text-transform: none !important ;
+    border-radius: 7px !important;
+    color: #c19647 !important ;
+}
+
+.searchInput{
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    padding-left: 2.375rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+

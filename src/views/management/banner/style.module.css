@@ -1,0 +1,62 @@
+.actionCta{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 75%;
+    margin: auto;
+}
+
+.acceptCta{
+    background-image: linear-gradient(to right,#e4c87f,#c19647);
+    text-transform: none !important ;
+    
+}
+
+.selected{
+    background: transparent linear-gradient(106deg, #E4C87F 0%, #C19647 100%) 0% 0% no-repeat padding-box;
+    width: 160px;
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    padding: 9px 24px;
+    text-align: center;
+    font-weight: bold;
+    border: 0px;
+}
+
+
+.unselected{
+    width: 160px;
+    background: #006D5B;
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    padding: 9px 24px;
+    text-align: center;
+    font-weight: bold;
+    border: 0px;
+    cursor: pointer;
+}
+
+.firstContainer{
+    display: flex;
+  
+    justify-content: space-evenly;
+    width: 52%;
+}
+
+.rejectCta{
+    background: #ffffff 0% 0% no-repeat padding-box !important ;
+    border: 1px solid #c19647 !important ;
+    text-transform: none !important ;
+    border-radius: 7px !important;
+    color: #c19647 !important ;
+}
+
+.modalConCta{
+    display: flex;
+    justify-content: space-around;
+    width: 45%;
+    margin: 10px auto;
+}
+

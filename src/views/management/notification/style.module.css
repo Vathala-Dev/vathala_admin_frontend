@@ -1,0 +1,37 @@
+.container{
+    display: flex;
+    justify-content: space-around;
+}
+
+.content1{
+    flex: 0.6;
+}
+
+.acceptCta{
+    background-image: linear-gradient(to right,#e4c87f,#c19647);
+    text-transform: none !important ; 
+}
+
+.content2,.content3{
+    border: 0.2px solid black;
+    padding: 20px;
+    height: 25rem;
+    overflow: auto;
+
+}
+
+.checkCta{
+    display: flex;
+    padding-bottom: 15px;
+
+}
+
+.checkCta input{
+    margin-left: 10px;
+    width: 20px;
+}
+
+.checkCta p{
+    margin-left: 10px;
+    font-size: 18px;
+}

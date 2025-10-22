@@ -1,0 +1,13 @@
+.container{
+    display: flex;
+    align-items: center;
+    width: 60%;
+    margin: auto;
+    gap: 1rem;
+    align-items: center;
+}
+
+.acceptCta{
+    background-image: linear-gradient(to right,#e4c87f,#c19647);
+    text-transform: none !important ; 
+}

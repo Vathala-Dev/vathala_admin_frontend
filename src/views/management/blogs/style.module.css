@@ -1,0 +1,135 @@
+.actionCta{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 75%;
+    margin: auto;
+}
+
+.acceptCta{
+    background-image: linear-gradient(to right,#e4c87f,#c19647);
+    text-transform: none !important ; 
+    color: white;
+    
+}
+
+.selected{
+    background: transparent linear-gradient(106deg, #E4C87F 0%, #C19647 100%) 0% 0% no-repeat padding-box;
+    width: 160px;
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    padding: 9px 24px;
+    text-align: center;
+    font-weight: bold;
+    border: 0px;
+}
+
+
+.unselected{
+    width: 160px;
+    background: #006D5B;
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+    color: #FFFFFF;
+    padding: 9px 24px;
+    text-align: center;
+    font-weight: bold;
+    border: 0px;
+    cursor: pointer;
+}
+
+.firstContainer{
+    display: flex;
+  
+    justify-content: space-evenly;
+    width: 52%;
+}
+
+.rejectCta{
+    background: #ffffff 0% 0% no-repeat padding-box !important ;
+    border: 1px solid #c19647 !important ;
+    text-transform: none !important ;
+    border-radius: 7px !important;
+    color: #c19647 !important ;
+}
+
+.modalConCta{
+    display: flex;
+    justify-content: space-around;
+    width: 45%;
+    margin: 10px auto;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.editorWrapper {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.acceptCta {
+  background-color: #006d5b !important;
+  color: white;
+}
+
+.rejectCta {
+  color: #d21313 !important;
+  border-color: #d21313 !important;
+}
+
+.modalConCta {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.blogImage {
+  width: 70px;
+  height: auto;
+  object-fit: cover;
+}
+
+.actionCta {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  align-items: center;
+}
+
+.editIcon {
+  font-size: 24px;
+  color: #006d5b;
+  cursor: pointer;
+}
+
+.deleteIcon {
+  font-size: 22px;
+  color: #d21313;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    padding: 0.5rem;
+    max-width: 100%;
+  }
+
+  .editorWrapper {
+    max-width: 100%;
+  }
+
+  .actionCta {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,23 @@
+.overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    top: 0;
+    background-color: darkgrey;
+    color: white;
+    cursor: pointer;
+    font-size: bolder;
+    font-weight: bold;
+    text-align: center;
+}
+
+.headerBtn button{
+    margin: 0;
+}
+
+
+
+.headerBtn{
+    text-align: center;
+}

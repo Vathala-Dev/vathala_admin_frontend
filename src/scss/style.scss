@@ -1,0 +1,90 @@
+// If you want to override variables do it here
+@import "variables";
+
+$enable-ltr: true;
+$enable-rtl: true;
+
+// Import CoreUI for React components library
+@import "@coreui/coreui/scss/coreui";
+
+// Import Chart.js custom tooltips styles
+@import "@coreui/chartjs/scss/coreui-chartjs";
+
+@import "layout";
+@import "example";
+
+// If you want to add custom CSS you can put it here.
+@import "custom";
+
+*{
+font-family: Roboto,"Helvetica Neue",sans-serif !important  ;
+}
+
+.bdc-item{    
+    font-size: 20px !important ;
+    font-weight: 600 !important ;
+    color: white;
+}
+
+.bdc-container{
+    background: transparent linear-gradient(96deg, #006D5B 0%, #02565d 100%) 0% 0% no-repeat padding-box;
+    padding: 18px 6px;
+    margin: -15px -27px 20px;
+    color: white;
+}
+
+.new-icons{
+    margin-right: 15px;
+    width: 18px;
+}
+
+.bdc-container-content{
+    background: transparent linear-gradient(96deg, #006D5B 0%, #02565d 100%) 0% 0% no-repeat padding-box;
+    padding: 17px 35px;
+    margin: -15px -27px 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pac-container {
+    z-index: 1100 !important;
+}
+
+
+.searchIcon{
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 30px;
+    border-radius: 7px;
+    height: 40px;
+    line-height: 35px;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+.searchInput{
+    display: block;
+    width: 100%;
+    padding: 0.475rem 0.75rem;
+    padding-left: 2.375rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.editorClassName{
+    background-color: white !important;
+    padding: 10px !important;
+}

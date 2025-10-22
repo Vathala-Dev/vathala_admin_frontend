@@ -1,0 +1,18 @@
+.css-1yhpg23-MuiTableCell-root{
+    font-size: 16px!important;
+    color: #7E7E7E !important ;
+}
+
+.css-1ndpvdd-MuiTableCell-root,.css-1ygcj2i-MuiTableCell-root {
+    color: #000;
+    font-size: 14px !important ;
+    font-weight: bolder !important ;
+}
+
+.MuiTablePagination-spacer {
+    flex: none !important;
+}
+
+.MuiTablePagination-root{
+overflow: visible !important;
+}

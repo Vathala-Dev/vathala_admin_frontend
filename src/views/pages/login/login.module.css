@@ -1,0 +1,37 @@
+.mainCard{
+    background: #DEEBE8 0% 0% no-repeat padding-box;
+    box-shadow: 0 6px 12px #2099f44a;
+    border-radius: 12px;
+}
+
+.input{
+    box-shadow: none !important;
+    background-color: transparent !important;
+    position: relative;
+}
+
+.eyeIcon{
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.ctaBtn{
+    margin-top: 20px;
+    width: 100%;
+    background: transparent linear-gradient(103deg,#E4C87F 0%,#C19647 100%) 0% 0% no-repeat padding-box;
+    font: normal normal normal 14px/21px Poppins;
+    padding: 15px 0;
+    border: transparent;
+    color: white;
+    font-size: 16px;
+}
+
+.checkbox{
+    margin-right: 5px;
+    width: 20px;
+    height: 15px;
+    margin-top: 3px;
+}
