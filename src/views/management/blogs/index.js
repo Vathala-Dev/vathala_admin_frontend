@@ -41,11 +41,77 @@ const Index = () => {
    const [state, setState] = useState({
       blogContent: RichTextEditor.createValueFromString('', 'html'),
    })
+   const [category, setCategory] = useState('');
+   const [metaTitle, setMetaTitle] = useState("");
+   const [metaDescription, setMetaDescription] = useState("");
+   const [metaKeywords, setMetaKeywords] = useState("");
+
+   const [faqList, setFaqList] = useState([])
    const [value, setValue] = useState([])
    const [blogs, setBlogs] = useState([])
    const [searchKey, setSearchKey] = useState('')
    const [errors, setErrors] = useState({})
+
+   const [howToSteps, setHowToSteps] = useState([
+      { name: "", text: "" }
+   ]);
+   const categoryOptions = [
+      "Physiotherapy",
+      "Home Doctor",
+      "Veterinary Doctor",
+      "Nursing Care",
+      "Wound Care",
+      "Diagnostic Blood",
+      "Yoga classes",
+      "Elder Care"
+   ];
+
+   // Rating Schema
+   const [ratingSchema, setRatingSchema] = useState({
+      name: "",
+      description: "",
+      ratingValue: "",
+      ratingCount: ""
+   });
    const isEditMode = typeof detailPopup === 'string'
+
+
+   const saveDraft = () => {
+      if (isEditMode) return; // only for new blogs
+      const draftData = {
+         blogName,
+         imageUrl,
+         slug,
+         blogContent: state.blogContent.toString('html'),
+         metaTitle,
+         metaDescription,
+         metaKeywords,
+         faqList,
+         howToSteps,
+         ratingSchema,
+         category,
+      };
+
+      localStorage.setItem("BLOG_DRAFT", JSON.stringify(draftData));
+   };
+   useEffect(() => {
+      if (detailPopup) {
+         saveDraft();
+      }
+   }, [
+      blogName,
+      imageUrl,
+      slug,
+      state.blogContent,
+      metaTitle,
+      metaDescription,
+      metaKeywords,
+      faqList,
+      howToSteps,
+      ratingSchema,
+      category,
+   ]);
+
    const validateForm = () => {
       const newErrors = {}
 
@@ -55,6 +121,7 @@ const Index = () => {
       if (!blogContentHtml.trim() || blogContentHtml === '<p><br></p>') {
          newErrors.blogContent = 'Blog content is required.'
       }
+      if (!category) newErrors.category = 'Category is required.'
       if (!imageUrl || imageUrl === UploadImg) newErrors.imageUrl = 'Blog image is required.'
 
       setErrors(newErrors)
@@ -65,10 +132,10 @@ const Index = () => {
 
       try {
          if (isEditMode) {
-            await editBlog({ blogName, slug, blogContent: state.blogContent, imageUrl })
-       
+            await editBlog({ blogName, slug, blogContent: state.blogContent, imageUrl,category })
+
          } else {
-            await createBlog({ blogName, slug, blogContent: state.blogContent, imageUrl })
+            await createBlog({ blogName, slug, blogContent: state.blogContent, imageUrl, category })
             await getBlogs() // Wait for blogs to refresh
          }
       } catch (error) {
@@ -100,7 +167,7 @@ const Index = () => {
       )
    }
 
-   const pageSize = 5
+   const pageSize = 10
    const paginatedPosts = paginate(blogs, pageSize)
    const [currentPage, setCurrentPage] = useState(1)
    const currentPosts = paginatedPosts[currentPage - 1]
@@ -128,7 +195,14 @@ const Index = () => {
          imageUrl: imageUrl,
          content: state.blogContent.toString('html'),
          slug: generatedSlug,
+         category: category,
          date: new Date().toISOString().split('T')[0],
+         metaTitle,
+         metaDescription,
+         metaKeywords,
+         faqList,
+         howToSteps,
+         ratingSchema
       }
 
       setValue([...value, blogData])
@@ -139,14 +213,21 @@ const Index = () => {
       setSlug('')
       setBlogName('')
       setImageUrl('')
+      setMetaTitle('')
+      setMetaDescription('')
+      setMetaKeywords('')
+      setFaqList([{ question: "", answer: "" }]);
+      setHowToSteps([{ name: "", text: "" }]);
+      setRatingSchema({})
       setState({
          blogContent: RichTextEditor.createValueFromString('', 'html'),
       })
-
+      setCategory('');
       setDetailPopup(false)
       api.post('addBlog', blogData)
          .then((result) => {
             toast.success(result?.message)
+            localStorage.removeItem("BLOG_DRAFT");
             console.log('Blog created successfully:', result)
             // Optionally, you can refresh the blog list or perform other actions here
             // Refresh the blog list after creating a new blog
@@ -164,7 +245,14 @@ const Index = () => {
          imageUrl: imageUrl,
          content: state.blogContent.toString('html'),
          slug: generatedSlug,
+         category: category,
          date: new Date().toISOString().split('T')[0],
+         metaTitle,
+         metaDescription,
+         metaKeywords,
+         faqList,
+         howToSteps,
+         ratingSchema
       }
 
       api.post('editBlog', blogData)
@@ -227,6 +315,8 @@ const Index = () => {
    useEffect(() => {
       getBlogs()
    }, [])
+
+
    return (
       <>
          <div>
@@ -256,14 +346,44 @@ const Index = () => {
                         variant="contained"
                         className={styles.acceptCta}
                         onClick={() => {
-                           setDetailPopup(true)
-                           setBlogName('')
-                           setImageUrl('')
-                           setSlug('')
-                           setState({
-                              blogContent: RichTextEditor.createValueFromString('', 'html'),
-                           })
+                           setDetailPopup(true);
+
+                           const draft = localStorage.getItem("BLOG_DRAFT");
+
+                           if (draft) {
+                              const data = JSON.parse(draft);
+
+                              setBlogName(data.blogName || "");
+                              setImageUrl(data.imageUrl || "");
+                              setSlug(data.slug || "");
+                              setMetaTitle(data.metaTitle || "");
+                              setMetaDescription(data.metaDescription || "");
+                              setMetaKeywords(data.metaKeywords || "");
+                              setFaqList(data.faqList || []);
+                              setHowToSteps(data.howToSteps || [{ name: "", text: "" }]);
+                              setRatingSchema(data.ratingSchema || {});
+                              setCategory(data.category || '');
+                              setState({
+                                 blogContent: RichTextEditor.createValueFromString(
+                                    data.blogContent || "",
+                                    "html"
+                                 ),
+                              });
+                           } else {
+                              // Fresh blog
+                              setBlogName("");
+                              setImageUrl("");
+                              setSlug("");
+                              setFaqList([]);
+                              setHowToSteps([{ name: "", text: "" }]);
+                              setRatingSchema({});
+                              setCategory('');
+                              setState({
+                                 blogContent: RichTextEditor.createValueFromString("", "html"),
+                              });
+                           }
                         }}
+
                      >
                         Add Blog
                      </Button>
@@ -370,6 +490,13 @@ const Index = () => {
                                                 setBlogName(post?.title)
                                                 setImageUrl(post?.imageUrl)
                                                 setSlug(post?.slug)
+                                                setFaqList(post?.faqList)
+                                                setHowToSteps(post?.howToSteps)
+                                                setRatingSchema(post?.ratingSchema)
+                                                setMetaTitle(post?.metaTitle || "");
+                                                setMetaDescription(post?.metaDescription || "");
+                                                setMetaKeywords(post?.metaKeywords || "");
+                                                setCategory(post?.category || '');
                                                 setState({
                                                    blogContent:
                                                       RichTextEditor.createValueFromString(
@@ -379,14 +506,14 @@ const Index = () => {
                                                 })
                                              }}
                                           />
-                                          <ImBin
+                                          {/* <ImBin
                                              style={{
                                                 fontSize: '22px',
                                                 color: '#d21313',
                                                 cursor: 'pointer',
                                              }}
                                              onClick={() => setDel(post?._id)}
-                                          />
+                                          /> */}
                                           <Switch
                                              color="success"
                                              checked={post?.isActive === true}
@@ -413,14 +540,16 @@ const Index = () => {
 
             <CommonModal
                show={detailPopup}
-               setShow={setDetailPopup}
-               title={isEditMode ? 'Edit Blog' : 'Add Blog'}
+               setShow={(val) => {
+                  if (!val) saveDraft(); // closing
+                  setDetailPopup(val);
+               }} title={isEditMode ? 'Edit Blog' : 'Add Blog'}
+               size="xl"
                bodyContent={
                   <div style={{ width: '100%', maxHeight: '90vh', overflowY: 'auto' }}>
                      <div>
                         <Typography className="text-center fw-bold">Blog Image</Typography>
                         <br />
-
                         <FilePicker
                            onGetUrl={(url) => setImageUrl(url)}
                            imageUrl={imageUrl ? imageUrl : UploadImg}
@@ -428,7 +557,6 @@ const Index = () => {
                            bodyHeight="150px"
                         />
                         {errors.imageUrl && <p style={{ color: 'red' }}>{errors.imageUrl}</p>}
-
                         <SimpleInput
                            title="Blog Name"
                            required
@@ -438,7 +566,6 @@ const Index = () => {
                            style={{ margin: '15px 0 0' }}
                         />
                         {errors.blogName && <p style={{ color: 'red' }}>{errors.blogName}</p>}
-
                         <SimpleInput
                            title="Blog Link"
                            required
@@ -447,7 +574,32 @@ const Index = () => {
                            onChange={(e) => setSlug(e.target.value)}
                         />
                         {errors.slug && <p style={{ color: 'red' }}>{errors.slug}</p>}
+                        <div style={{ marginTop: "15px" }}>
+                           <Typography variant="subtitle1" fontWeight="bold">
+                              Category *
+                           </Typography>
 
+                           <select
+                              value={category}
+                              onChange={(e) => setCategory(e.target.value)}
+                              style={{
+                                 width: "100%",
+                                 padding: "12px",
+                                 borderRadius: "6px",
+                                 border: "1px solid #ccc",
+                                 marginTop: "5px"
+                              }}
+                           >                    
+                              <option value="">Select Category</option>
+
+                              {categoryOptions.map((item) => (
+                                 <option key={item} value={item}>
+                                    {item}
+                                 </option>
+                              ))}
+                           </select>
+                        </div>
+                        {errors.category && <p style={{ color: 'red' }}>{errors.category}</p>}
                         <Typography className="text-center fw-bold">Blog Content</Typography>
                         {errors.blogContent && <p style={{ color: 'red' }}>{errors.blogContent}</p>}
                         <RichTextEditor
@@ -456,6 +608,176 @@ const Index = () => {
                            placeholder="Write your blog content here..."
                            editorStyle={{ height: '15rem' }}
                         />
+                        <Typography className="text-center fw-bold mt-4">Meta Section</Typography>
+                        <SimpleInput
+                           title="Meta Title"
+                           value={metaTitle}
+                           onChange={(e) => setMetaTitle(e.target.value)}
+                           placeholder="Enter Meta Title"
+                        />
+                        <SimpleInput
+                           title="Meta Description"
+                           value={metaDescription}
+                           onChange={(e) => setMetaDescription(e.target.value)}
+                           placeholder="Enter Meta Description"
+                        />
+                        <SimpleInput
+                           title="Meta Keywords"
+                           value={metaKeywords}
+                           onChange={(e) => setMetaKeywords(e.target.value)}
+                           placeholder="keyword1, keyword2, keyword3"
+                        />
+                        <Typography className="text-center fw-bold mt-4">FAQ Section</Typography>
+                        {faqList.map((faq, index) => (
+                           <div key={index} style={{ padding: "10px", border: "1px solid #ddd", marginTop: 10, borderRadius: 8 }}>
+                              <SimpleInput
+                                 title={`Question ${index + 1}`}
+                                 value={faq.question}
+                                 onChange={(e) => {
+                                    const updated = [...faqList];
+                                    updated[index].question = e.target.value;
+                                    setFaqList(updated);
+                                 }}
+                                 placeholder="Enter FAQ question"
+                              />
+                              <SimpleInput
+                                 title={`Answer ${index + 1}`}
+                                 value={faq.answer}
+                                 onChange={(e) => {
+                                    const updated = [...faqList];
+                                    updated[index].answer = e.target.value;
+                                    setFaqList(updated);
+                                 }}
+                                 placeholder="Enter FAQ answer"
+                                 style={{ marginTop: 5 }}
+                              />
+                              {faqList.length > 0 && (
+                                 <Button
+                                    variant="outlined"
+                                    color="error"
+                                    style={{ marginTop: 10 }}
+                                    onClick={() => {
+                                       const updated = faqList.filter((_, i) => i !== index);
+
+                                       setFaqList(updated);
+                                    }}
+                                 >
+                                    Remove FAQ
+                                 </Button>
+                              )}
+                           </div>
+                        ))}
+                        <Button
+                           variant="contained"
+                           style={{ background: "#3a524eff", marginTop: 10 }}
+                           onClick={() => setFaqList([...faqList, { question: "", answer: "" },], console.log("faqlist", faqList))}
+                        >
+                           {faqList.length === 0 ? "+ Add FAQ" : "+ Add More FAQ"}
+                        </Button>
+
+
+                        <Typography className="text-center fw-bold mt-4">How To Schema</Typography>
+
+                        {howToSteps.map((step, index) => (
+                           <div key={index} style={{ padding: 10, border: "1px solid #ddd", marginTop: 10, borderRadius: 8 }}>
+                              <SimpleInput
+                                 title={`Step ${index + 1} Title`}
+                                 value={step.name}
+                                 onChange={(e) => {
+                                    const updated = [...howToSteps];
+                                    updated[index].name = e.target.value;
+                                    setHowToSteps(updated);
+                                 }}
+                                 placeholder="Enter step title"
+                              />
+
+                              <SimpleInput
+                                 title={`Step ${index + 1} Description`}
+                                 value={step.text}
+                                 onChange={(e) => {
+                                    const updated = [...howToSteps];
+                                    updated[index].text = e.target.value;
+                                    setHowToSteps(updated);
+                                 }}
+                                 placeholder="Explain this step"
+                                 style={{ marginTop: 5 }}
+                              />
+
+                              <Button
+                                 variant="outlined"
+                                 color="error"
+                                 style={{ marginTop: 10 }}
+                                 onClick={() => setHowToSteps(howToSteps.filter((_, i) => i !== index))}
+                              >
+                                 Remove Step
+                              </Button>
+                           </div>
+                        ))}
+
+                        <Button
+                           variant="contained"
+                           style={{ background: "#3a524eff", marginTop: 10 }}
+                           onClick={() => setHowToSteps([...howToSteps, { name: "", text: "" }])}
+                        >
+                           + Add Step
+                        </Button>
+                        <Typography className="text-center fw-bold mt-4">Rating Schema</Typography>
+
+                        <SimpleInput
+                           title="Rating Name"
+                           value={ratingSchema.name}
+                           onChange={(e) => setRatingSchema({ ...ratingSchema, name: e.target.value })}
+                           placeholder="Eg: Blog Rating"
+                        />
+
+                        <SimpleInput
+                           title="Rating Description"
+                           value={ratingSchema.description}
+                           onChange={(e) => setRatingSchema({ ...ratingSchema, description: e.target.value })}
+                           placeholder="Eg: User feedback rating"
+                        />
+
+                        <SimpleInput
+                           title="Rating Value (1 to 5)"
+                           type="number"
+                           value={ratingSchema.ratingValue}
+                           onChange={(e) => {
+                              let value = parseFloat(e.target.value);
+
+                              if (isNaN(value)) {
+                                 setRatingSchema({ ...ratingSchema, ratingValue: "" });
+                                 return;
+                              }
+
+                              // Clamp between 1 and 5
+                              if (value < 1) value = 1;
+                              if (value > 5) value = 5;
+
+                              setRatingSchema({
+                                 ...ratingSchema,
+                                 ratingValue: value
+                              });
+                           }}
+                           inputProps={{
+                              min: 1,
+                              max: 5,
+                              step: 0.1
+                           }} placeholder="4.5"
+                           onKeyDown={(e) => {
+                              if (["e", "E", "+", "-"].includes(e.key)) {
+                                 e.preventDefault();
+                              }
+                           }}
+                        />
+
+                        <SimpleInput
+                           title="Rating Count"
+                           type="number"
+                           value={ratingSchema.ratingCount}
+                           onChange={(e) => setRatingSchema({ ...ratingSchema, ratingCount: e.target.value })}
+                           placeholder="120"
+                        />
+
 
                         <div className="text-center mt-5 mb-1">
                            <Button className={styles.acceptCta} onClick={handleSubmit}>
@@ -468,7 +790,8 @@ const Index = () => {
             />
          </div>
       </>
+
    )
 }
 
-export default Index
+export default Index;

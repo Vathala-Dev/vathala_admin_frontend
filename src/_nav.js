@@ -46,6 +46,7 @@ import CMSMgmt from "src/assets/images/Admin's Side Panel icons/cms_mgt.png"
 import CMSMgmtActImg from "src/assets/images/Admin's Side Panel icons/cms_mgt_active.png"
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
 import { useGlobalStore } from './utils/store'
+import { Icon } from '@mui/material'
 
 function Nav() {
    const { userDetails } = useGlobalStore((state) => state)
@@ -67,6 +68,14 @@ function Nav() {
          Icon: (visible) => {
             return <img src={visible ? UserActImg : UserImg} className="new-icons" />
          },
+      },
+      {
+         component: CNavItem,
+         name: "Support Number Managment",
+         to: "/adminpanel/supportnum-mgmt",
+         Icon: (visible) => {
+            return <img src={visible ? CmsActImg : CmsImg} className='new-icons' />
+         }
       },
       {
          component: CNavItem,
@@ -137,6 +146,14 @@ function Nav() {
          component: CNavItem,
          name: 'Banner Management',
          to: '/adminpanel/banner-mgmt',
+         Icon: (visible) => {
+            return <img src={visible ? BannerActImg : BannerImg} className="new-icons" />
+         },
+      },
+      {
+         component: CNavItem,
+         name: 'Welcome Banner Management',
+         to: '/adminpanel/welcome-bnr-mgmt',
          Icon: (visible) => {
             return <img src={visible ? BannerActImg : BannerImg} className="new-icons" />
          },

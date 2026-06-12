@@ -19,26 +19,30 @@ function Index({ show }) {
             'Mobile Number',
             'Email',
             'City',
+            'Address',
+            'Joined On',
+            'Referral Code',
+            'State',
             'Completed Booking',
             'Cancelled Booking',
-            'Joined On',
             'Status',
          ]
       }
       if (name == 'totalUser') {
          return [
             'First Name',
-            'Last Name',
-            'Country Code',
+            // 'Last Name',
+            // 'Country Code',
             'Mobile Number',
             'Email',
             'City',
+            'Address',
+            'Joined On',
+            'Referral Code',
+            'state',
             'Completed Booking',
             'Cancelled Booking',
-            'Joined On',
             'Status',
-            'Referral Code',
-            'Address'
          ]
       } else if (name == 'totalCompany') {
          return [
@@ -56,11 +60,11 @@ function Index({ show }) {
       } else if (name == 'totalIndevidual') {
          return [
             'Name',
+            'Category',
             'Mobile Number',
             'Email',
             'City',
             'Address',
-            'Category',
             'Total experience',
             'Specialist Type',
             'State',
@@ -70,7 +74,10 @@ function Index({ show }) {
          ]
       } else if (name == 'totalCompleteService') {
          return [
-            'UserName',
+            'User Name',
+            'Mobile',
+            'Email',
+            'City',
             'Booking Date & Time',
             'Booking Id',
             'Company Name',
@@ -84,7 +91,10 @@ function Index({ show }) {
          ]
       } else if (name == 'totalOngoingService') {
          return [
-            'UserName',
+            'User Name',
+            'Mobile',
+            'Email',
+            'City',
             'Booking Date & Time',
             'Booking Id',
             'Company Name',
@@ -98,7 +108,10 @@ function Index({ show }) {
          ]
       } else if (name == 'totalCancelledService') {
          return [
-            'UserName',
+            'User Name',
+            'Mobile',
+            'Email',
+            'City',
             'Booking Date & Time',
             'Booking Id',
             'Company Name',
@@ -113,7 +126,10 @@ function Index({ show }) {
          ]
       } else if (name == 'totalRevenuePlateform') {
          return [
-            'UserName',
+           'User Name',
+            'Mobile',
+            'Email',
+            'City',
             'Booking Date & Time',
             'Booking Id',
             'Company Name',
@@ -166,26 +182,29 @@ function Index({ show }) {
             mNo: v?.mobile_number,
             email: v?.email,
             city: v?.city,
+            address: v?.address,
+            joined_on: v.created_on,
+            referral_code: v?.ref_code,
+            state: v?.state,
             completedBokking: v.completeBooking,
             cancelledBooking: v.cancelledBooking,
-            joined_on: v.created_on,
             status: v?.is_blocked == 1 ? 'Blocked' : 'Active',
          }))
       } else if (name == 'totalUser') {
          return data?.map((v) => ({
             fName: v?.first_name,
-            lName: v?.last_name,
-            country_code: v?.country_code,
+            // lName: v?.last_name,
+            // country_code: v?.country_code,
             mNo: v?.mobile_number,
             email: v?.email,
             city: v?.city,
+            address: v?.address,
+            joined_on: v.created_on,
+            referral_code: v?.ref_code,
+            state: v?.state,
             completedBokking: v.completeBooking,
             cancelledBooking: v.cancelledBooking,
-
-            joined_on: v.created_on,
             status: v?.is_blocked == 1 ? 'Blocked' : 'Active',
-            referral_code: v?.referral_code,
-            address: v?.address,
          }))
       } else if (name == 'totalCompany') {
          // ["Name","Company Name","Contact Number","Email","Total Workforce","Category","Registration No.","Liscence No.","Address"]
@@ -204,11 +223,11 @@ function Index({ show }) {
       } else if (name == 'totalIndevidual') {
          return data?.map((v) => ({
             name: v?.name,
+            category: v?.serviceTypeName,
             mNo: v?.mobile_number,
             email: v?.email,
             city: v?.city,
             address: v?.address,
-            category: v?.serviceTypeName,
             totalexperience: v?.total_experience,
             specialisttype: v?.specialistType?.join(', '),
             state: v?.state,
@@ -222,6 +241,9 @@ function Index({ show }) {
             v.createdOn = formatDate(v?.createdOn)
             return {
                name: v?.userName,
+               mobileNumber:v?.userMobile,
+               email:v?.userEmail,
+               city:v?.userCity,
                bookingDateTime: v?.bookingDateTime,
                bookingId: v?.bookingId,
                companyName: v?.companyName ? v.companyName : 'N/A',
@@ -230,7 +252,7 @@ function Index({ show }) {
                reservationDate: v?.createdOn,
                totalCharges: v.amount,
                paymentStatus: v.paymentStatus,
-               email: v.address,
+               address: v.address,
                paymentMode: v.paymentMode ? v.paymentMode : 'COD',
             }
          })
@@ -239,7 +261,10 @@ function Index({ show }) {
             v.bookingDateTime = formatDateTime(v?.bookingDateTime)
             v.createdOn = formatDate(v?.createdOn)
             return {
-               name: v?.userName,
+              name: v?.userName,
+               mobileNumber:v?.userMobile,
+               email:v?.userEmail,
+               city:v?.userCity,
                bookingDateTime: v?.bookingDateTime,
                bookingId: v?.bookingId,
                companyName: v?.companyName ? v.companyName : 'N/A',
@@ -248,7 +273,7 @@ function Index({ show }) {
                reservationDate: v?.createdOn,
                totalCharges: v.amount,
                paymentStatus: v.paymentStatus,
-               email: v.address,
+                address: v.address,
                paymentMode: v.paymentMode ? v.paymentMode : 'COD',
             }
          })
@@ -258,6 +283,9 @@ function Index({ show }) {
             v.createdOn = formatDate(v?.createdOn)
             return {
                name: v?.userName,
+               mobileNumber:v?.userMobile,
+               email:v?.userEmail,
+               city:v?.userCity,
                bookingDateTime: v?.bookingDateTime,
                bookingId: v?.bookingId,
                companyName: v?.companyName ? v.companyName : 'N/A',
@@ -267,7 +295,7 @@ function Index({ show }) {
                totalCharges: v.amount,
                paymentStatus: v.paymentStatus,
                cancelReason: v.cancelReason || 'N/A',
-               email: v.address,
+                address: v.address,
                paymentMode: v.paymentMode ? v.paymentMode : 'COD',
             }
          })
@@ -276,7 +304,10 @@ function Index({ show }) {
             v.bookingDateTime = formatDateTime(v?.bookingDateTime)
             v.createdOn = formatDate(v?.createdOn)
             return {
-               name: v?.userName,
+              name: v?.userName,
+               mobileNumber:v?.userMobile,
+               email:v?.userEmail,
+               city:v?.userCity,
                bookingDateTime: v?.bookingDateTime,
                bookingId: v?.bookingId,
                companyName: v?.companyName ? v.companyName : 'N/A',
@@ -285,7 +316,7 @@ function Index({ show }) {
                reservationDate: v?.createdOn,
                totalCharges: v.amount,
                paymentStatus: v.paymentStatus,
-               email: v.address,
+               address: v.address,
                paymentMode: v.paymentMode ? v.paymentMode : 'COD',
             }
          })

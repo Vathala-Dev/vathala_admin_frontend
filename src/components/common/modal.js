@@ -2,14 +2,14 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import styles from "./style.module.css"
 
-function CommonModal({ show, setShow, title, primaryFunction, bodyContent,bgGrey }) {
+function CommonModal({ show, setShow, title, primaryFunction, bodyContent,bgGrey,size }) {
   console.log(show, "showModal");
   return (
     <>
       <Modal
         show={show ? true : false}
         onHide={() => setShow(false)}
-        size="md"
+        size={size}
       centered
       >
         {(title || title == "")  && (

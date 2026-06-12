@@ -1,87 +1,109 @@
-import React, { useState } from "react";
-
-import { CForm,CFormInput,CFormLabel, CFormTextarea } from '@coreui/react';
+import React from "react";
+import { CFormInput, CFormLabel, CFormTextarea, CFormSelect } from '@coreui/react';
 
 function SimpleInput(props) {
-
 
   const {
     placeholder = "",
     value = "",
-    onChange = () => {},
+    onChange = () => { },
     name = "",
     groupClassName = "",
     style = {},
-    type = "",
-    title= "",
+    type = "text",
+    title = "",
     disabled,
     ref,
     textArea = false,
     required = false,
-    verify,
-    labelStyle={},
-    error
+    labelStyle = {},
+    error,
+
+    // ⭐ NEW
+    options = [],
+    select = false
+
   } = props;
 
-
-  console.log(error,"error");
-
   return (
-    <div
-      className={groupClassName}
-      style={{ position: "relative", ...style }}
-    >
+    <div className={groupClassName} style={{ position: "relative", ...style }}>
 
-        {title &&
-        <CFormLabel style={labelStyle} className="mb-1 fw-bolder" >{title}</CFormLabel>
-        }
-      {required ? <span style={{ color: "red" }}> * </span> : null}
+      {title && (
+        <CFormLabel style={labelStyle} className="mb-1 fw-bolder">
+          {title}
+          {required && <span style={{ color: "red" }}> *</span>}
+        </CFormLabel>
+      )}
 
-      {!textArea ? (
+      {/* INPUT MODE */}
+      {!textArea && !select && (
         <CFormInput
           style={{
             fontSize: "14px",
             color: "black",
             height: "40px",
-            border: "1px solid",
             borderRadius: "5px",
-            borderColor: error ? "#e55353"  : "#D8D8D8",
+            border: "1px solid",
+            borderColor: error ? "#e55353" : "#D8D8D8",
           }}
           placeholder={placeholder}
           onChange={onChange}
-         ref={ref}
+          ref={ref}
           value={value}
           name={name}
           type={type}
           disabled={disabled}
         />
-      ) : (
-        <CFormTextarea
-        style={{
-          fontSize: "14px",
-          color: "black",
-          
-          border: "1px solid",
-          borderRadius: "5px",
-          borderColor: error ? "#e55353" : "#D8D8D8",
-        }}
-        placeholder={placeholder}
-        onChange={onChange}
-       rows={5}
-     
-        value={value}
-        name={name}
-        type={type}
-        disabled={disabled}
-      />
       )}
 
-     
-{error ? (
-        <CFormLabel className="simple-select-error" style={{color:"#dc3545"}} >
+      {/* TEXTAREA MODE */}
+      {textArea && (
+        <CFormTextarea
+          style={{
+            fontSize: "14px",
+            color: "black",
+            borderRadius: "5px",
+            border: "1px solid",
+            borderColor: error ? "#e55353" : "#D8D8D8",
+          }}
+          placeholder={placeholder}
+          onChange={onChange}
+          rows={5}
+          value={value}
+          name={name}
+          disabled={disabled}
+        />
+      )}
+
+      {/* ⭐ SELECT MODE */}
+      {select && (
+        <CFormSelect
+          style={{
+            fontSize: "14px",
+            height: "40px",
+            borderRadius: "5px",
+            border: "1px solid",
+            borderColor: error ? "#e55353" : "#D8D8D8",
+          }}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+        >
+          {options.map((opt, i) => (
+            <option key={i} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </CFormSelect>
+      )}
+
+      {/* ERROR */}
+      {error && (
+        <CFormLabel style={{ color: "#dc3545", fontSize: "12px" }}>
           {error}
         </CFormLabel>
-      ) : null}
+      )}
+
     </div>
   );
 }

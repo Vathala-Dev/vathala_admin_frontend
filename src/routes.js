@@ -1,3 +1,4 @@
+import { element } from 'prop-types'
 import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
@@ -27,6 +28,8 @@ const Notification = React.lazy(() => import('./views/notification'))
 const ChangePassword = React.lazy(() => import('./views/changePassword'))
 const BlogsMgmt = React.lazy(() => import('./views/management/blogs'))
 const EnquiryMgmt = React.lazy(() => import('./views/management/enquiry'))
+const SupportMgmt = React.lazy(() => import('./views/management/support'))
+const WelcomeMgmt=React.lazy(()=>import('./views/management/welcomeBanner'))
 
 const routes = [
    { path: '/login', exact: true, name: 'Home' },
@@ -75,6 +78,8 @@ const routes = [
    { path: '/adminpanel/change-password', name: 'Change Password', element: ChangePassword },
    { path: '/adminpanel/blogs-mgmt', name: 'Blogs Management', element: BlogsMgmt },
    { path: '/adminpanel/enquiry-mgmt', name: 'Enquiry Management', element: EnquiryMgmt },
+   {path:'adminpanel/supportnum-mgmt', name:"Support Managment",element: SupportMgmt},
+   {path:'adminpanel/welcome-bnr-mgmt',name: "Welcome Banner",element: WelcomeMgmt}
    // { path: '*', name: 'Dashboard', element: Dashboard },
 
 ]
