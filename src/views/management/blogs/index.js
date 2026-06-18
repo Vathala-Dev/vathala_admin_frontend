@@ -63,7 +63,15 @@ const Index = () => {
       "Wound Care",
       "Diagnostic Blood",
       "Yoga classes",
-      "Elder Care"
+      "Elder Care",
+      "Caregiver",
+      "Health Checkup",
+      "General",
+      "Health Tips",
+      "Patient Stories",
+      "MedicalResearch",
+      "Others"
+     
    ];
 
    // Rating Schema
@@ -132,7 +140,7 @@ const Index = () => {
 
       try {
          if (isEditMode) {
-            await editBlog({ blogName, slug, blogContent: state.blogContent, imageUrl,category })
+            await editBlog({ blogName, slug, blogContent: state.blogContent, imageUrl, category })
 
          } else {
             await createBlog({ blogName, slug, blogContent: state.blogContent, imageUrl, category })
@@ -171,6 +179,7 @@ const Index = () => {
    const paginatedPosts = paginate(blogs, pageSize)
    const [currentPage, setCurrentPage] = useState(1)
    const currentPosts = paginatedPosts[currentPage - 1]
+   
 
    console.log(imageUrl, 'imageUrl')
    const filteredPosts = currentPosts?.filter(
@@ -589,7 +598,7 @@ const Index = () => {
                                  border: "1px solid #ccc",
                                  marginTop: "5px"
                               }}
-                           >                    
+                           >
                               <option value="">Select Category</option>
 
                               {categoryOptions.map((item) => (

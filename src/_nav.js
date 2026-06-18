@@ -71,8 +71,8 @@ function Nav() {
       },
       {
          component: CNavItem,
-         name: "Support Number Managment",
-         to: "/adminpanel/supportnum-mgmt",
+         name: "FAQ Management",
+         to: "/adminpanel/faq-mgmt",
          Icon: (visible) => {
             return <img src={visible ? CmsActImg : CmsImg} className='new-icons' />
          }
@@ -262,7 +262,8 @@ function Nav() {
    ]
 
    if (userDetails?.adminType == 'subAdmin') {
-      return allNav.filter((v) => userDetails?.accessModule.some((s) => s.title === v.name))
+      return allNav.filter((v) => userDetails?.accessModule?.some((s) => s.title === v.name))
+      
    } else {
       return allNav
    }

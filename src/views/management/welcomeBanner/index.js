@@ -17,7 +17,7 @@ import UploadImg from 'src/assets/images/upload.png'
 function Index({ show }) {
 
     const [allUsers, setAllUsers] = useState([])
-    const [categoryList, setCategoryList] = useState([])
+    // const [categoryList, setCategoryList] = useState([])
 
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(5)
@@ -48,11 +48,11 @@ function Index({ show }) {
     }
 
     /* -------------------- Load Categories -------------------- */
-    useEffect(() => {
-        api.get('getCategories')
-            .then(res => setCategoryList(res.data || []))
-            .catch(err => console.log(err))
-    }, [])
+    // useEffect(() => {
+    //     api.get('getCategories')
+    //         .then(res => setCategoryList(res.data || []))
+    //         .catch(err => console.log(err))
+    // }, [])
 
     /* -------------------- Reset Form -------------------- */
     useEffect(() => {
