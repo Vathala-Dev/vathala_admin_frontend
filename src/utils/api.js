@@ -14,8 +14,10 @@ var setupAPI = function () {
          // BASE_URL = 'http://192.168.1.116:3001/admin/'
          //BASE_URL = 'http://13.235.67.131:4032/api/';
          // BASE_URL = 'http://192.168.0.109:3001/admin/';
-         BASE_URL = 'http://52.66.187.242:3001/admin/'
+         // BASE_URL = 'http://52.66.187.242:3001/admin/'
          // BASE_URL = 'http://43.204.84.242:3001/admin/'
+         BASE_URL = 'https://api.vathala/admin/'
+
          break
       case 'staging':
          // BASE_URL = 'http://192.168.1.116:3001/admin/'
@@ -32,7 +34,8 @@ var setupAPI = function () {
          // BASE_URL = 'http://192.168.1.116:3001/admin/';
          // BASE_URL = 'http://localhost:3001/admin/';
          // BASE_URL = 'http://43.204.84.242:3001/admin/';
-         BASE_URL = 'http://52.66.187.242:3001/admin/'
+         // BASE_URL = 'http://52.66.187.242:3001/admin/'
+         BASE_URL = 'https://api.vathala.com/admin/'
          break
    }
 }

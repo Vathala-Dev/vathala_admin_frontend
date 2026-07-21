@@ -69,8 +69,10 @@ const Index = () => {
       "General",
       "Health Tips",
       "Patient Stories",
-      "MedicalResearch",
-      "Others"
+      "Medical Research",
+      "Case studies",
+      "Others",
+
      
    ];
 
@@ -515,14 +517,14 @@ const Index = () => {
                                                 })
                                              }}
                                           />
-                                          {/* <ImBin
+                                           <ImBin
                                              style={{
                                                 fontSize: '22px',
                                                 color: '#d21313',
                                                 cursor: 'pointer',
                                              }}
                                              onClick={() => setDel(post?._id)}
-                                          /> */}
+                                          /> 
                                           <Switch
                                              color="success"
                                              checked={post?.isActive === true}
