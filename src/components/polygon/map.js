@@ -29,7 +29,7 @@ const Map = withScriptjs(
         onDragEnd={() => setCenter(mapRef.current.getCenter())}
         onZoomChanged={() => setZoom(mapRef.current.getZoom())}
       >
-        <SearchBox onPlacesChanged={handlePlacesChanged} />
+        {/* <SearchBox onPlacesChanged={handlePlacesChanged} /> */}
       </GoogleMap>
     )
   }),

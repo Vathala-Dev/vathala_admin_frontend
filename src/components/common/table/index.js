@@ -4,7 +4,7 @@ import { createTheme, useTheme } from '@mui/material/styles';
 import {Box,Table,TableBody,TableCell,TableContainer,TableFooter,TablePagination,TableRow,Paper,IconButton,TableHead} from '@mui/material';
 import {AiOutlineLeft,AiOutlineRight,AiOutlineVerticalLeft,AiOutlineVerticalRight} from "react-icons/ai"
 import "./table.css"
-import { ThemeProvider } from "@material-ui/styles";
+// import { ThemeProvider } from "@material-ui/styles";
 
 
 function TablePaginationActions(props) {

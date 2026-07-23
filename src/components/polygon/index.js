@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 
 import { LoadScript, GoogleMap, Polygon, useJsApiLoader } from "@react-google-maps/api";
-import SearchBox from "./search";
+// import SearchBox from "./search";
 import Autocomplete from "react-google-autocomplete";
 import { LocationSearchInput } from "./newSearch";
 
