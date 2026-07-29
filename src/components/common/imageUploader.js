@@ -71,7 +71,9 @@ const FilePicker = ({
 
       axios({
          method: 'post',
-         url: 'http://52.66.187.242:3001/admin/uploadImage',
+         // url: 'http://52.66.187.242:3001/admin/uploadImage',
+                  url: 'https://api.vathala.com/admin/uploadImage',
+
          data: bodyFormData,
          headers: { access_token: token },
       })
