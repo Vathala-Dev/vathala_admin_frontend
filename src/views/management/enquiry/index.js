@@ -42,6 +42,8 @@ const Index = () => {
                                 <th>Location</th>
                                 <th>Enquiry Type</th>
                                 <th>Message</th>
+
+                                <th>Source</th>
                             </tr>
                         </thead>
 
@@ -76,6 +78,7 @@ const Index = () => {
                                             <td>{item.location || "—"}</td>
                                             <td>{item.enquiryType || "—"}</td>
                                             <td>{item.message || "—"}</td>
+                                            <td>{item.source || "—"}</td>
                                         </tr>
                                     );
                                 })
